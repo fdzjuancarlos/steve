@@ -7,7 +7,12 @@ class Steve():
     def parser_init(self):
         self.parser = argparse.ArgumentParser(description='Management of production servers for angular/django webservers.')
         self.parser.add_argument("-l", "--list", help="List all servers available", action="store_true")
+        self.parser.add_argument("-s", "--server", nargs=1, required=True, help="Indicates the server that must be operated")
         self.args = self.parser.parse_args()
+        self.server_name = self.args.server[0].strip()
+        if(not self.server_name in self.servers_configs.keys()):
+            raise Exception(f'No server found with given name [{self.server_name}]')
+        self.ssh = SSHWrapper(self.servers_configs['panel'])
 
     def read_server_configs(self):
         self.servers_configs = {}
@@ -25,8 +30,6 @@ class Steve():
         if(self.args.list):
             for key in self.servers_configs.keys():
                 print(f'Server config: {key}')
-        ssh = SSHWrapper(self.servers_configs['panel'])
-        ssh.execute("ls")
 
 if __name__ == "__main__":
     steve = Steve()
