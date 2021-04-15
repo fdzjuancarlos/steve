@@ -34,3 +34,6 @@ class SSHWrapper():
 
     def rm_file(self, filepath):
         self.execute( f'rm {filepath}' )
+
+    def rm_empty_dir(self, filepath):
+        self.execute( f'rm -rf {filepath}/*' )

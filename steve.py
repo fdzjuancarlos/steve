@@ -11,6 +11,7 @@ class Steve():
         self.parser.add_argument("-l", "--list", help="List all servers available", action="store_true")
         self.parser.add_argument("-s", "--server", nargs=1, required=True, help="Indicates the server that must be operated")
         self.parser.add_argument("-m", "--maintenance", nargs=1, help="ON or OFF")
+        self.parser.add_argument("-d", "--deploy", action="store_true", help="Activates the deploy rule for each deploy configured")
         self.args = self.parser.parse_args()
         self.server_name = self.args.server[0].strip()
         if(not self.server_name in self.servers_configs.keys()):
@@ -44,8 +45,9 @@ class Steve():
                 manteinance.on()
             elif("off" in arg_lowered):
                 manteinance.off()
-        deployer = Deployer(self)
-        deployer.backup()
+        if(self.args.deploy):
+            deployer = Deployer(self)
+            deployer.start()
 
 
 
