@@ -2,6 +2,7 @@ import argparse
 import os, json
 from utilities.ssh_wrapper import SSHWrapper
 from strategy.maintenance import Maintenance
+from strategy.deployer import Deployer
 
 class Steve():
 
@@ -43,6 +44,9 @@ class Steve():
                 manteinance.on()
             elif("off" in arg_lowered):
                 manteinance.off()
+        deployer = Deployer(self)
+        deployer.backup()
+
 
 
 if __name__ == "__main__":

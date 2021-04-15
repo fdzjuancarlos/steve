@@ -1,5 +1,6 @@
 # Custom Steve
 servers/
+backups/
 !servers/example.json
 
 # Byte-compiled / optimized / DLL files

@@ -26,5 +26,11 @@ class SSHWrapper():
         ftp_client.put(local_file, remote_path)
         ftp_client.close()
 
+    def download_file(self, remote_path, local_path):
+        self.connect()
+        ftp_client = self.ssh.open_sftp()
+        ftp_client.get(remote_path, local_path)
+        ftp_client.close()
+
     def rm_file(self, filepath):
         self.execute( f'rm {filepath}' )
